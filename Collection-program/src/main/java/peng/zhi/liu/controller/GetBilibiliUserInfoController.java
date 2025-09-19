@@ -24,6 +24,14 @@ public class GetBilibiliUserInfoController {
     @PostMapping(value = "/getBiliUserInfo",produces = "application/json")
     @ResponseBody
     public Result getBiliUserInfo(@RequestBody GetBiliUserInfoDTO getBiliUserInfoDTO) {
+        if (getBiliUserInfoDTO.getCookie() == null || getBiliUserInfoDTO.getCookie().isEmpty()) {
+            return Result.error("Cookie不能为空");
+        }
+
+        if (getBiliUserInfoDTO.getUpMid() == null || getBiliUserInfoDTO.getUpMid().isEmpty()) {
+            return Result.error("upMid不能为空");
+        }
+
         String url = "https://api.bilibili.com/x/v3/fav/folder/created/list-all";
         String upMid = getBiliUserInfoDTO.getUpMid();
 
